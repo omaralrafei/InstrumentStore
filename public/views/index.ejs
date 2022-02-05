@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="eng">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>Home</title>
+  </head>
+  <body>
+      <div id="navigation">
+            <div class="logo">
+              <a  href="/index"><img src="images/OmarLogo.png" alt="" id="logo"></a>
+              <p id="intro">Welcome to the World of Sound</p>
+            </div>
+            <ul id="navbar">
+              <li onclick="location.href='guitars';"><a>Guitars</a></li>
+              <li onclick="location.href='bass';"><a>Bass</a></li>
+              <li onclick="location.href='drums';"><a>Drums</a></li>
+              <li onclick="location.href='keyboards';"><a>Keyboards</a></li>
+              <li onclick="location.href='topDeals';"><a>Top Deals</a></li>
+              <li id="cart_icon" onclick="cart()"><a><img src="white-24dp/1x/outline_shopping_cart_white_24dp.png" alt="An image"/></a></li>
+              <li onclick="logout()"> <img src="images/logout.png" alt=""></li>
+            </ul>
+      </div>
+
+
+      <form action="http://localhost:8081/cart" method="post">
+        <input type="text" name="ID" id="ID" style="display: none;">
+        <input type="submit" id="submit" value="submit" style="display: none;">
+      </form>
+
+
+      <div id="bannerContainer">
+        <p id="about">Our store offers a wide selection of high quality musical instruments covering the demands of every artist.</p>
+        <img src="images/Electric_Guitar_Store.jpg" alt="" id="banner">
+      </div>
+      <div id="grid">
+      <h1>Products in Stock</h1>
+      <div class="grid-container">
+        <a href="/guitars" class="grid-item item1">
+          <img src=<%= obj[0].image %>>
+          <div class="flag">Guitars</div>
+        </a>
+        <a href="/topDeals" class="grid-item item2">
+          <img src="images/white.png" alt="">
+          <div id="cycle">
+            <img id="img1" src=<%= obj[0].image %> alt="">
+            <img id="img2" src=<%= obj[1].image %> alt="">
+            <img id="img3" src=<%= obj[2].image %> alt="">
+          </div>
+          <div class="flag">Top Deals</div>
+        </a>
+        <a href="/keyboards" class="grid-item item3">
+          <img src=<%= obj[3].image %>>
+          <div class="flag">Keyboards</div>
+        </a>
+        <a href="/drums" class="grid-item item4">
+          <img src=<%= obj[2].image %>>
+          <div class="flag">Drums</div>
+        </a>
+        <a href="/bass" class="grid-item item5">
+          <img src=<%= obj[1].image %>>
+          <div class="flag">Bass</div>
+        </a>
+    </div>
+  </div>
+
+    <div id="footer">
+      
+      <ul>
+        <h3>Categories</h3>
+        <li><a href="guitars">Guitars</a></li>
+              <li><a href="bass">Bass</a></li>
+              <li><a href="drums">Drums</a></li>
+              <li><a href="keyboards">Keyboards</a></li>
+              <li><a href="topDeals">Top Deals</a></li>
+      </ul>
+      
+      <ul>
+        <h3>Contact us</h3>
+        <li> <div>By phone:</div> <a href="tel:+">+96178927602</a></li>
+        <li> <div>By e-mail:</div> <a href="mailto:">omar.alrafei@lau.edu</a></li>
+      </ul>
+
+      
+      <ul id="social">
+        <h3>Social Media</h3>
+        <li><a href="https://facebook.com/" target="_"><img class="social" src="images/f_logo_RGB-White_1024.png" alt="">/OmarsInstruments</a></li>
+        <li><a href="https://instagram.com/" target="_"><img class="social" src="images/instagram white.png" alt="">/OmarsInstruments</a></li>
+        <li><a href="https://twitter.com/" target="_"><img class="social" src="images/2021 Twitter logo - white.png" alt="">/OmarsInstruments</a></li>
+      </ul>
+
+    </div>
+
+    <script>
+       //logout button from navigation
+      function logout() {
+        alert("logged out");
+        sessionStorage.clear();
+      }
+      //sets id in <form> to user.id
+      function cart() {
+        if (sessionStorage.getItem("currentUser")) {//checks if user is signed in
+          user = JSON.parse(sessionStorage.getItem("currentUser"));
+          document.getElementById("ID").value = user.ID;
+          document.getElementById("submit").click();
+        } else {
+          window.location.href = "signin";
+        }
+      }
+    </script>
+
+  </body>
+  </html>

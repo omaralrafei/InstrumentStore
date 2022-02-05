@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link rel="stylesheet" href="css/styleSignin.css" />
+    <meta
+      name="google-signin-client_id"
+      content="455576808357-lkffh6t5dth0j9loj2jpq9djmv0eofo4.apps.googleusercontent.com"
+    />
+  </head>
+  <body>
+    <div id="navigation">
+      <div class="logo">
+        <a href="/index"
+          ><img src="images/OmarLogo.png" alt="" id="logo"
+        /></a>
+        <p id="intro">Welcome to the World of Sound</p>
+      </div>
+      <ul id="navbar">
+        <li onclick="location.href='guitars';"><a>Guitars</a></li>
+        <li onclick="location.href='bass';"><a>Bass</a></li>
+        <li onclick="location.href='drums';"><a>Drums</a></li>
+        <li onclick="location.href='keyboards';"><a>Keyboards</a></li>
+        <li onclick="location.href='topDeals';"><a>Top Deals</a></li>
+        <li id="cart_icon" onclick="cart()">
+          <a
+            ><img
+              src="white-24dp/1x/outline_shopping_cart_white_24dp.png"
+              alt="An image"
+          /></a>
+        </li>
+        <li onclick="logout()">
+          <img src="images/logout.png" alt="" />
+        </li>
+      </ul>
+    </div>
+
+    <form action="http://localhost:8081/cart" method="post">
+      <input type="text" name="ID" id="ID" style="display: none" />
+      <input type="submit" id="submit" value="submit" style="display: none" />
+    </form>
+
+    <h1>Please sign in using your google account to access your cart:</h1>
+
+    <div id="sign">
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    </div>
+
+    <div id="footer">
+      <ul>
+        <h3>Categories</h3>
+        <li><a href="guitars">Guitars</a></li>
+        <li><a href="bass">Bass</a></li>
+        <li><a href="drums">Drums</a></li>
+        <li><a href="keyboards">Keyboards</a></li>
+        <li><a href="topDeals">Top Deals</a></li>
+      </ul>
+
+      <ul>
+        <h3>Contact us</h3>
+        <li>
+          <div>By phone:</div>
+          <a href="tel:+">+96178927602</a>
+        </li>
+        <li>
+          <div>By e-mail:</div>
+          <a href="mailto:">omar.alrafei@lau.edu</a>
+        </li>
+      </ul>
+
+      <ul id="social">
+        <h3>Social Media</h3>
+        <li>
+          <a href="https://facebook.com/" target="_"
+            ><img
+              class="social"
+              src="images/f_logo_RGB-White_1024.png"
+              alt=""
+            />/OmarsInstruments</a
+          >
+        </li>
+        <li>
+          <a href="https://instagram.com/" target="_"
+            ><img
+              class="social"
+              src="images/instagram white.png"
+              alt=""
+            />/OmarsInstruments</a
+          >
+        </li>
+        <li>
+          <a href="https://twitter.com/" target="_"
+            ><img
+              class="social"
+              src="images/2021 Twitter logo - white.png"
+              alt=""
+            />/OmarsInstruments</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      //sets id in <form> to user.id
+      function cart() {
+        if (sessionStorage.getItem("currentUser")) {//checks if user in signed in
+          user = JSON.parse(sessionStorage.getItem("currentUser"));
+          document.getElementById("ID").value = user.ID;
+          document.getElementById("submit").click();
+        } else {
+          window.location.href = "signin";
+        }
+      }
+      //gets id of the logged in user and sets it and redirects to index
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId());
+        console.log("Name: " + profile.getName());
+        console.log("Email: " + profile.getEmail());
+
+        var currentUser = {};
+        currentUser.ID = profile.getId();
+        currentUser.Name = profile.getName();
+        sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+        window.location.href = "index";
+      }
+      //logout button from navigation
+      function logout() {
+        sessionStorage.clear();
+      }
+    </script>
+  </body>
+</html>

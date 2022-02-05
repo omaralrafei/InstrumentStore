@@ -1,0 +1,260 @@
+@font-face {
+  font-family: "zen";
+  src: url(/Project1/fonts/Zen_Antique_Soft/ZenAntiqueSoft-Regular.ttf);
+}
+@font-face {
+  font-family: "cedar";
+  src: url(/Project1/fonts/Cedarville_Cursive/CedarvilleCursive-Regular.ttf);
+}
+body {
+  margin: 0px;
+  background-color: beige;
+}
+
+#logo {
+  padding: 5px;
+  margin-right: 10px;
+  float: left;
+  width: 10%;
+  height: 10%;
+  border-right-color: black;
+  border-right-width: 3px;
+  border-right-style: groove;
+}
+
+.logo {
+  background-color: beige;
+  overflow: hidden;
+}
+#intro {
+  padding-top: 5px;
+  font-size: 60px;
+  font-family: "cedar";
+  text-align: center;
+  margin: 0px 0px -5px;
+  text-shadow: 5px 5px rgb(0, 0, 0, 0.2);
+}
+#navbar {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(0, 0, 0);
+  margin: 0px;
+  overflow: auto;
+}
+#navbar li:nth-last-child(2) {
+  margin-left: 80px;
+  float: right;
+}
+#navbar li {
+  display: inline-block;
+  width: 150px;
+  height: 40px;
+  background-color: rgba(78, 78, 78, 0.5);
+  text-align: center;
+  padding-top: 15px;
+  margin-right: 5px;
+  font-family: "zen";
+}
+#navbar li a {
+  text-decoration: none;
+  color: beige;
+}
+#navbar li:hover a {
+  color: rgba(236, 232, 0, 0.9);
+  transition: all 0.5s ease-in;
+}
+#navbar li:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: all 0.5s ease-in;
+}
+
+h1 {
+  font-family: fantasy;
+  margin-left: 200px;
+}
+
+.grid-container {
+  padding: 20px 40px 15px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  grid-gap: 40px;
+  border-radius: 20px;
+  margin: 10px 100px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.grid-item.item1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+.grid-item.item2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+.grid-item.item3 {
+  grid-column: 1;
+  grid-row: 2;
+}
+.grid-item.item4 {
+  grid-column: 2;
+  grid-row: 2;
+}
+.grid-item {
+  position: relative;
+  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  padding-bottom: 15%;
+  padding-top: 5%;
+}
+.grid-item:hover {
+  box-shadow: 5px 0px 5px black;
+  transform: translate(0px, -5px);
+  transition: all 0.5s ease-out;
+}
+.grid-item img {
+  width: 70%;
+  height: 100%;
+}
+.flag {
+  position: absolute;
+  left: 40%;
+  margin: 0px;
+  text-align: center;
+  font-family: "zen";
+  width: 80px;
+}
+.add{
+  background-color: rgba(0, 0, 0, 0.8);
+  color: beige;
+  font-family: "zen";
+  padding: 2%;
+  font-size: 20px;
+  border-radius: 10px;
+}
+.add:hover{
+  cursor: pointer;
+  color: rgba(236, 232, 0, 0.9);
+}
+#footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-content: space-around;
+  background-color: rgb(46, 46, 46);
+  border: 5px groove rgb(68, 68, 68);
+}
+#footer ul {
+  list-style-type: none;
+  width: 200px;
+  border-radius: 10px;
+  border-left: 3px groove beige;
+  padding: 5px 10px;
+}
+#footer a {
+  font-family: "zen";
+  text-decoration: none;
+  color: beige;
+}
+#footer a:hover {
+  text-decoration: underline;
+}
+#footer div {
+  font-family: "zen";
+  color: rgba(241, 241, 161, 0.637);
+}
+h3 {
+  color: rgba(252, 240, 130, 0.85);
+}
+.social {
+  width: 20%;
+  height: auto;
+}
+#social li:hover {
+  transform: translateY(-5px);
+  transition: all 1s ease-in-out;
+}
+#social li {
+  padding: 5px 0px;
+}
+@media screen and (max-width: 1100px) {
+  #intro {
+    font-size: 50px;
+  }
+  #bannerContainer p {
+    font-size: 20px;
+  }
+  #footer li {
+    font-size: 15px;
+  }
+  #footer img {
+    width: 13%;
+    height: auto;
+  }
+  h3 {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 800px) {
+  #intro {
+    font-size: 30px;
+  }
+  #bannerContainer p {
+    font-size: 14px;
+  }
+  #cycle img {
+    left: 40px;
+  }
+  #footer li {
+    font-size: 10px;
+  }
+  #footer img {
+    width: 10%;
+    height: auto;
+  }
+  h3 {
+    font-size: 15px;
+  }
+  h1 {
+    margin-left: 150px;
+  }
+  #navbar li {
+    font-size: 15px;
+    padding: 15px 0px 0px;
+  }
+  .flag {
+    left: 32%;
+  }
+}
+@media screen and (max-width: 426px) {
+  #intro {
+    font-size: 20px;
+  }
+  #footer li {
+    font-size: 10px;
+  }
+  #footer img {
+    width: 10%;
+    height: auto;
+  }
+  h3 {
+    font-size: 15px;
+  }
+  h1 {
+    margin-left: 100px;
+  }
+  #navbar li {
+    font-size: 15px;
+    padding: 15px 0px 0px;
+  }
+  .grid-container {
+    display: block;
+  }
+  .grid-item {
+    margin-bottom: 20px;
+  }
+  .flag {
+    left: 20%;
+  }
+}
