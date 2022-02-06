@@ -81,7 +81,7 @@ h1 {
   grid-template-rows: auto auto;
   grid-gap: 20px;
   border-radius: 20px;
-  margin: 10% 10%;
+  margin: 5% 20%;
   background-color: rgba(0, 0, 0, 0.8);
   padding: 20px;
 }
@@ -106,7 +106,7 @@ h1 {
   text-align: center;
   background-color: white;
   border-radius: 5px;
-  padding-bottom: 20%;
+  padding-bottom: 25%;
   padding-top: 5%;
 }
 .grid-item:hover {
