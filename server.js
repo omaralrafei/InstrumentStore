@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const mogodb = require("mongodb");
+const mongodb = require("mongodb");
 const MongoClient = require("mongodb").MongoClient;
 const connectionURL = "mongodb+srv://omaralrafei1:oooooooo@clusterdata.fhire.mongodb.net/test";
 var dbo;
@@ -604,7 +604,6 @@ app.post("/checkout", (req, res) => {
       });
   });
 });
-
-app.listen(8081, () => {
+app.listen(process.env.PORT || 8081, () => {
   console.log("Server is running on port 8081");
 });
