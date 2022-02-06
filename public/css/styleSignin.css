@@ -1,10 +1,10 @@
 @font-face {
   font-family: "zen";
-  src: url(/Project1/fonts/Zen_Antique_Soft/ZenAntiqueSoft-Regular.ttf);
+  src: url(fonts/Zen_Antique_Soft/ZenAntiqueSoft-Regular.ttf);
 }
 @font-face {
   font-family: "cedar";
-  src: url(/Project1/fonts/Cedarville_Cursive/CedarvilleCursive-Regular.ttf);
+  src: url(fonts/Cedarville_Cursive/CedarvilleCursive-Regular.ttf);
 }
 body {
   margin: 0px;

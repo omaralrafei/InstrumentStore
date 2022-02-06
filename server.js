@@ -186,7 +186,7 @@ MongoClient.connect(connectionURL, function (error, database) {
 
 //loads the signin page which is the first thing displayed 
 app.get("/", function (req, res) {
-  res.render("index");
+  res.render("signin");
 });
 
 //lods signin page used in case the user didn't signin
