@@ -3,7 +3,7 @@ const app = express();
 const path = require("path");
 const mogodb = require("mongodb");
 const MongoClient = require("mongodb").MongoClient;
-const connectionURL = "mongodb://localhost:27017/mydb";
+const connectionURL = "mongodb+srv://omaralrafei1:oooooooo@clusterdata.fhire.mongodb.net/test";
 var dbo;
 
 app.use(express.static("public/"));
