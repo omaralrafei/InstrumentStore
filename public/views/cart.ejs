@@ -27,7 +27,7 @@
             </ul>
     </div>
 
-    <form action="http://localhost:8081/cart" method="post">
+    <form action="/cart" method="post">
         <input type="text" name="ID" id="ID" style="display: none;">
         <input type="submit" id="submit" value="submit" style="display: none;">
       </form>
@@ -116,7 +116,7 @@
       }
       //calls /addQuantity from script.js
       function addQuantity(button, name) {
-        fetch("http://localhost:8081/addQuantity", {
+        fetch("/addQuantity", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -144,7 +144,7 @@
       }
       //calls /subQuantity from script.js
       function subQuantity(button, name) {
-        fetch("http://localhost:8081/subQuantity", {
+        fetch("/subQuantity", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -172,7 +172,7 @@
       }
       //calls /deletefromcart from script.js
       function deleteItem(button, name) {
-        fetch("http://localhost:8081/deletefromcart", {
+        fetch("/deletefromcart", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -201,7 +201,7 @@
       }
       //Calls /checkout from script.js
       function checkout() {
-        fetch("http://localhost:8081/checkout", {
+        fetch("/checkout", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",

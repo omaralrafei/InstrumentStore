@@ -24,7 +24,7 @@
             </ul>
       </div>
 
-      <form action="http://localhost:8081/cart" method="post">
+      <form action="/cart" method="post">
         <input type="text" name="ID" id="ID" style="display: none;">
         <input type="submit" id="submit" value="submit" style="display: none;">
       </form>
@@ -84,7 +84,7 @@
           user = JSON.parse(sessionStorage.getItem("currentUser"));
 
           if (user) {//checks if user is signed in
-            fetch("http://localhost:8081/addtocart", {
+            fetch("/addtocart", {
               method: "POST",
               headers: {
                 "Content-Type":
