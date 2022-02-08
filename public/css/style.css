@@ -420,7 +420,7 @@ h3 {
 }
 @media screen and (max-width: 376px) {
   #intro {
-    font-size: 80%;
+    font-size: 12px;
   }
   #footer li {
     font-size: 10px;
