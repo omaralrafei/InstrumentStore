@@ -39,8 +39,9 @@ body {
   justify-content: center;
   background-color: rgb(0, 0, 0);
   margin: 0px;
-  overflow-x: auto;
-  overflow-y: visible;
+  padding-left: 0px;
+  width: 100%;
+  height: fit-content;
 }
 
 #navbar li:nth-last-child(2){
@@ -53,6 +54,7 @@ body {
   height: 40px;
   background-color: rgba(78, 78, 78, 0.5);
   text-align: center;
+  align-items: center;
   padding-top: 15px;
   margin-right: 5px;
   font-family: "zen";
@@ -322,7 +324,45 @@ h3 {
 }
 @media screen and (max-width: 426px) {
   #intro {
+    font-size: 25px;
+  }
+  #footer li {
+    font-size: 10px;
+  }
+  #footer img {
+    width: 10%;
+    height: auto;
+  }
+  h3 {
     font-size: 20px;
+  }
+  #navbar li {
+    font-size: 15px;
+    height: 30px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+  }
+  #navbar li:nth-last-child(2){
+  margin-left: 0px;
+  float: none;
+  }
+  .flag {
+    top: 15px;
+  }
+  .grid-item.item2 {
+    display: none;
+  }
+  #bannerContainer p {
+    margin-top: 20px;
+    padding-bottom: 60px;
+  }
+  #bannerContainer {
+    background-size: 100%;
+  }
+}
+@media screen and (max-width: 426px) {
+  #intro {
+    font-size: 25px;
   }
   #footer li {
     font-size: 10px;
@@ -335,7 +375,8 @@ h3 {
     font-size: 15px;
   }
   #navbar li {
-    font-size: 12px;
+    /* font-size: 12px; */
+    font-size: 55%;
     height: 30px;
     padding-top: 10px;
     padding-bottom: 5px;
@@ -343,7 +384,7 @@ h3 {
   #navbar li:nth-last-child(2){
   margin-left: 0px;
   float: none;
-}
+  }
   .grid-container {
     display: flex;
     margin-right: 50px;
@@ -391,39 +432,13 @@ h3 {
   h3 {
     font-size: 15px;
   }
-  h1 {
-    margin-left: 100px;
-  }
   #navbar li {
-    font-size: 15px;
-    padding: 15px 0px 0px;
+    font-size: 55%;
+    align-items: center;
+    margin: auto;
   }
-  .grid-container {
-    display: block;
-  }
-  .grid-item {
+  /* .grid-item {
     margin-bottom: 70px;
     margin-left: 33px;
-  }
-  .flag {
-    top: -200px;
-  }
-  .grid-item.item2 {
-    display: none;
-  }
-  #grid {
-    background-repeat: repeat-y;
-    background-position: center;
-    background-size: 100%;
-  }
-  #banner {
-    display: none;
-  }
-  #bannerContainer p {
-    margin-top: 20px;
-    padding-bottom: 60px;
-  }
-  #bannerContainer {
-    background-size: 100%;
-  }
+  } */
 }
