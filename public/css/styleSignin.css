@@ -60,18 +60,13 @@ body {
   color: beige;
 }
 #navbar li:hover a {
-  color: rgba(236, 232, 0, 0.9);
-  transition: all 0.5s ease-in;
+  color: rgba(0, 0, 0, 0.9);
+  transition: all 0.2s ease-in;
 }
 #navbar li:hover {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: whitesmoke;
   cursor: pointer;
-  transition: all 0.5s ease-in;
-}
-
-h1 {
-  font-family: fantasy;
-  margin-left: 200px;
+  transition: all 0.2s ease-in;
 }
 
 .grid-container {
@@ -140,12 +135,41 @@ h1 {
 #sign{
     display: flex;
     flex-direction: column;
-    height: 300px;
     justify-content: center;
 }
 .g-signin2{
     display: inline-block;
     margin: auto;
+}
+#prevStoreAcc{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#newStoreAcc{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+label{
+  margin: auto;
+  width: max-content;
+}
+#prevStoreAcc button{
+  width: fit-content;
+  margin: 20px auto auto auto;
+}
+#newStoreAcc button{
+  width: fit-content;
+  margin: auto auto 20px auto;
+}
+h1 {
+  padding: 30px;
+  font-family: fantasy;
+  margin: auto;
+}
+#baseSign{
+  width: fit-content;
 }
 #footer {
   display: flex;

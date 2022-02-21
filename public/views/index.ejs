@@ -8,21 +8,7 @@
     <title>Home</title>
   </head>
   <body>
-      <div id="navigation">
-            <div class="logo">
-              <a  href="/index"><img src="images/OmarLogo.png" alt="" id="logo"></a>
-              <p id="intro">Welcome to the World of Sound</p>
-            </div>
-            <ul id="navbar">
-              <li onclick="location.href='guitars';"><a>Guitars</a></li>
-              <li onclick="location.href='bass';"><a>Bass</a></li>
-              <li onclick="location.href='drums';"><a>Drums</a></li>
-              <li onclick="location.href='keyboards';"><a>Keyboards</a></li>
-              <li onclick="location.href='topDeals';"><a>Top Deals</a></li>
-              <li id="cart_icon" onclick="cart()"><a><img src="white-24dp/1x/outline_shopping_cart_white_24dp.png" alt="An image"/></a></li>
-              <li onclick="logout()"> <img src="images/logout.png" alt=""></li>
-            </ul>
-      </div>
+      <%- include('partials/header.ejs') %>
 
 
       <form action="/cart" method="post">
@@ -66,38 +52,14 @@
     </div>
   </div>
 
-    <div id="footer">
-      
-      <ul>
-        <h3>Categories</h3>
-        <li><a href="guitars">Guitars</a></li>
-              <li><a href="bass">Bass</a></li>
-              <li><a href="drums">Drums</a></li>
-              <li><a href="keyboards">Keyboards</a></li>
-              <li><a href="topDeals">Top Deals</a></li>
-      </ul>
-      
-      <ul>
-        <h3>Contact us</h3>
-        <li> <div>By phone:</div> <a href="tel:+">+96178927602</a></li>
-        <li> <div>By e-mail:</div> <a href="mailto:">omar.alrafei@lau.edu</a></li>
-      </ul>
-
-      
-      <ul id="social">
-        <h3>Social Media</h3>
-        <li><a href="https://facebook.com/" target="_"><img class="social" src="images/f_logo_RGB-White_1024.png" alt="">/OmarsInstruments</a></li>
-        <li><a href="https://instagram.com/" target="_"><img class="social" src="images/instagram white.png" alt="">/OmarsInstruments</a></li>
-        <li><a href="https://twitter.com/" target="_"><img class="social" src="images/2021 Twitter logo - white.png" alt="">/OmarsInstruments</a></li>
-      </ul>
-
-    </div>
+    <%- include('partials/footer.ejs') %>
 
     <script>
        //logout button from navigation
       function logout() {
         alert("logged out");
         sessionStorage.clear();
+        window.location.href = ('/signin');
       }
       //sets id in <form> to user.id
       function cart() {

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="css/styleSignin.css" />
+</head>
+<body>
+    <%- include('partials/header.ejs') %>
+    <form id="myForm" method="post">
+      <label>Username:
+      <input type="text" name="username" id="username">
+      <p id="msg1"></p>
+      </label>
+
+      <label>Password: 
+      <input type="password" name="pass" id="pass" onkeyup="check()">
+      </label>
+
+      <label>Confirm Password:
+      <input type="password" name="conPass" id="conPass" onkeyup="check()">
+      </label><br>
+
+      <span id="msg"></span><br>
+      <button type="button" onclick="signup()">Sign Up</button>
+    </form>
+    <%- include('partials/footer.ejs') %>
+</body>
+<script>
+    function cart() {
+        if (user) {//checks if user is signed in
+          document.getElementById("ID").value = user.ID;
+          document.getElementById("submit").click();
+        } else {
+          window.location.href = "signin";
+        }
+      }
+    function check() {
+        if (document.getElementById('pass').value ==
+            document.getElementById('conPass').value) {
+            document.getElementById('msg').innerHTML = '';
+        } else {
+            document.getElementById('msg').style.color = 'red';
+            document.getElementById('msg').innerHTML = 'Passwords do not match';
+        }
+    }
+    function signup(){
+        if (document.getElementById('msg').innerHTML == 'Passwords do not match'){
+            return;
+        } else{
+            fetch("/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          },
+          body: new URLSearchParams({
+            username: document.getElementById('username').value,
+            pass: document.getElementById('pass').value,
+          }),
+        })
+          .then(function (response) {
+            return response.text();
+          })
+          .then(function (data) {
+            console.log(data);
+            if (data == "success") {
+              let currentUser = {ID: document.getElementById('username').value};
+              sessionStorage.setItem("currentUser", currentUser);
+              window.location.href = ('/index');
+            } else if(data == "username already taken"){
+                document.getElementById('msg1').style.color = 'red';
+                document.getElementById('msg1').innerHTML = 'Username already taken';
+            }
+          })
+          .catch(function (err) {
+            console.error(err);
+          });
+        }
+    }
+</script>
+</html>

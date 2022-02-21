@@ -5,6 +5,9 @@ const mongodb = require("mongodb");
 const MongoClient = require("mongodb").MongoClient;
 const connectionURL = "mongodb+srv://omaralrafei1:oooooooo@clusterdata.fhire.mongodb.net/test";
 var dbo;
+// you can access this website at https://radiant-plateau-92385.herokuapp.com/
+
+const {encrypt, decrypt} = require('./encryption');
 
 app.use(express.static("public/"));
 app.set("view engine", "ejs");
@@ -25,6 +28,23 @@ MongoClient.connect(connectionURL, function (error, database) {
       throw err;
     }
     console.log("Collection cart have been created!");
+  });
+});
+
+//connects to DB and creates collection Cart
+MongoClient.connect(connectionURL, function (error, database) {
+  if (error) throw error;
+  dbo = database.db("mydb");
+
+  dbo.createCollection("users", function (err, res) {
+    if (err) {
+      if (err.ok == 0) {
+        console.log("Collection users already exist...");
+        return;
+      }
+      throw err;
+    }
+    console.log("Collection users have been created!");
   });
 });
 
@@ -185,6 +205,57 @@ MongoClient.connect(connectionURL, function (error, database) {
 //loads the signin page which is the first thing displayed 
 app.get("/", function (req, res) {
   res.render("signin");
+});
+
+app.get('/signup', function(req, res){
+  res.render("signup");
+});
+
+app.post('/login', function(req, res){
+  MongoClient.connect(connectionURL, function (err, db) {
+    if (err) throw err;
+    const dbo = db.db("mydb");
+    let userName = req.body.username;
+    let password = req.body.password;
+    dbo.collection("users").findOne({username: userName},function(err, result){
+      if (err) throw err;
+      else if(!result){
+        res.send("user not found");
+      } else{
+          let decryptedPass = decrypt({password:result.password,iv:result.iv});
+          console.log(decryptedPass);
+          if(decryptedPass != password){
+          res.send("wrong username or password");
+        }else{
+          res.send("success");
+        }
+      }
+    });
+  });
+});
+
+app.post('/create', function(req,res){
+   MongoClient.connect(connectionURL, function (err, db) {
+    if (err) throw err;
+    const dbo = db.db("mydb");
+    let userName = req.body.username;
+    let encryptedPassword = encrypt(req.body.pass);
+    let decryptedPassword = decrypt(encryptedPassword);
+    dbo.collection("users").findOne({username: userName},function(err, result){
+      if (err) throw err;
+      else if(result){
+        res.send("username already taken");
+      }
+      else{
+        dbo.collection("users").insertOne({username: userName, password: encryptedPassword.password, iv: encryptedPassword.iv}, function(err, result){
+        if (err) throw err;
+        else{
+          res.send("success");
+        }
+      });
+      }
+    });
+  });
 });
 
 //lods signin page used in case the user didn't signin
@@ -427,16 +498,9 @@ app.post("/addtocart", (req, res) => {
               function (err, result) {
                 if (err) throw err;
                 else if (!result) {
-                  dbo
-                    .collection("cart")
-                    .insertOne(item, function (err, result) {
+                  dbo.collection("cart").insertOne(item, function (err, result) {
                       if (err) throw err;
-                      dbo
-                        .collection("cart")
-                        .findOneAndUpdate(
-                          { name: item.name },
-                          { $inc: { quantity: 1 } }
-                        );
+                      dbo.collection("cart").findOneAndUpdate({ name: item.name },{ $inc: { quantity: 1 } });
                       console.log("item added to cart");
                       res.send(`success`);
                     });
