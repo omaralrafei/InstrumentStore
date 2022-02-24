@@ -163,9 +163,13 @@ label{
   width: fit-content;
   margin: auto auto 20px auto;
 }
+#sign button{
+  width: fit-content;
+  margin: 20px auto auto auto;
+}
 h1 {
   padding: 30px;
-  font-family: fantasy;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   margin: auto;
 }
 #baseSign{
@@ -230,6 +234,11 @@ h3 {
     font-size: 15px;
   }
 }
+@media screen and (max-width: 970px) {
+  h1 {
+    font-size: 25px;
+  }
+}
 @media screen and (max-width: 800px) {
   #intro {
     font-size: 30px;
@@ -250,9 +259,6 @@ h3 {
   h3 {
     font-size: 15px;
   }
-  h1 {
-    margin-left: 150px;
-  }
   #navbar li {
     font-size: 15px;
     padding: 15px 0px 0px;
@@ -261,7 +267,17 @@ h3 {
     left: 32%;
   }
 }
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 770px) {
+  h1 {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 620px) {
+  h1 {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 493px) {
   #intro {
     font-size: 20px;
   }
@@ -273,10 +289,10 @@ h3 {
     height: auto;
   }
   h3 {
-    font-size: 15px;
+    font-size: 17px;
   }
   h1 {
-    margin-left: 100px;
+    font-size: 12px;
   }
   #navbar li {
     font-size: 15px;

@@ -11,8 +11,8 @@
     <%- include('partials/header.ejs') %>
     <form id="myForm" method="post">
       <label>Username:
-      <input type="text" name="username" id="username">
-      <p id="msg1"></p>
+      <input type="text" name="username" id="username"> <br>
+      <span id="msg1"></span>
       </label>
 
       <label>Password: 
@@ -58,6 +58,7 @@
           body: new URLSearchParams({
             username: document.getElementById('username').value,
             pass: document.getElementById('pass').value,
+            ID: Math.floor(Math.random() * 999999999),
           }),
         })
           .then(function (response) {
@@ -65,13 +66,13 @@
           })
           .then(function (data) {
             console.log(data);
-            if (data == "success") {
-              let currentUser = {ID: document.getElementById('username').value};
-              sessionStorage.setItem("currentUser", currentUser);
-              window.location.href = ('/index');
-            } else if(data == "username already taken"){
+            if(data == "username already taken"){
                 document.getElementById('msg1').style.color = 'red';
                 document.getElementById('msg1').innerHTML = 'Username already taken';
+            } else{
+              var currentUser = {ID: data, name: document.getElementById('username').value};
+              sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+              window.location.href = ('/index');
             }
           })
           .catch(function (err) {

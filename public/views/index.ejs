@@ -64,6 +64,7 @@
       //sets id in <form> to user.id
       function cart() {
         if (sessionStorage.getItem("currentUser")) {//checks if user is signed in
+          console.log(sessionStorage.getItem("currentUser"));
           user = JSON.parse(sessionStorage.getItem("currentUser"));
           document.getElementById("ID").value = user.ID;
           document.getElementById("submit").click();

@@ -29,7 +29,7 @@
 
     <%- include('partials/footer.ejs') %>
     <script>
-      user = JSON.parse(sessionStorage.getItem("currentUser"));
+      var user = JSON.parse(sessionStorage.getItem("currentUser"));
       //logout button in navigation and redirects to index
       function logout() {
         alert("logged out");

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In</title>
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <link rel="stylesheet" href="css/styleSignin.css" />
     <meta
       name="google-signin-client_id"
@@ -23,8 +23,8 @@
     <h1 id="baseSign">Please sign in using your google account to access your cart:</h1>
 
     <div id="sign">
-      <div id="my-signin2"></div>
-      <button id="confirmSign" type="button"> sign in</button>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      <button id="confirmSign" type="button" onclick="googleButton()">Confirm</button>
     </div>
 
     <div id="prevStoreAcc">
@@ -35,7 +35,7 @@
       </label> <br>
       <label>Password:
       <input type="password" name="pass" id="pass">
-      <span id="msg"></span>
+      <p id="msg"></p>
       </label>
       <button type="button"onclick='signin()'>Sign In</button>
     </div>
@@ -48,32 +48,23 @@
 
     <script>
       
-      function onSuccess(googleUser) {
+      function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
         var currentUser = {};
         currentUser.ID = profile.getId();
         currentUser.Name = profile.getName();
-        sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
-        window.location.href = "/index";
+        sessionStorage.setItem("googleUser", JSON.stringify(currentUser));
     }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': attach,
-        'onfailure': onFailure,
-        'prompt': 'consent',
-      });
-    }
-    function attach(){
-      GoogleAuth.attachClickHandler("confirmSign", {}, onSuccess, onFailure);
-    }
+
+      function googleButton(){
+        var profile = sessionStorage.getItem("googleUser");
+        var currentUser = {ID: profile.getId(), name: profile.getName()};
+        if(currentUser){
+          sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+          window.location.href = "/index";
+        }
+      }
+
       function signin() {
         if(document.getElementById('pass')!= "" && document.getElementById('username')!= "" ){
         fetch("/login", {
@@ -91,14 +82,14 @@
           })
           .then(function (data) {
             console.log(data);
-            if (data == "success") {
-              let currentUser = {ID: document.getElementById('username').value};
-              sessionStorage.setItem("currentUser", currentUser);
-              window.location.href = ('/index');
-            } else if(data == "wrong username or password"){
+             if(data == "wrong username or password"){
               document.getElementById('msg').innerHTML='Username or Password are invalid';
-            } else{
+            } else if(data == "user not found"){
               document.getElementById('msg').innerHTML='Username does not exist';
+            } else{
+              let currentUser = {ID: data, name: document.getElementById('username').value};
+              sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+              window.location.href = ('/index');
             }
           })
           .catch(function (err) {
@@ -119,22 +110,9 @@
           window.location.href = "signin";
         }
       }
-      //gets id of the logged in user and sets it and redirects to index
-      // function onSignIn(googleUser) {
-      //   var profile = googleUser.getBasicProfile();
-      //   var currentUser = {};
-      //   currentUser.ID = profile.getId();
-      //   currentUser.Name = profile.getName();
-      //   sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
-      //   window.location.href = "/index";
-      // }
 
       //logout button from navigation
       function logout() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-        console.log('User signed out.');
-        });
         sessionStorage.clear();
       }
     </script>

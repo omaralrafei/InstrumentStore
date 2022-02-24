@@ -3,7 +3,8 @@ const app = express();
 const path = require("path");
 const mongodb = require("mongodb");
 const MongoClient = require("mongodb").MongoClient;
-const connectionURL = "mongodb+srv://omaralrafei1:oooooooo@clusterdata.fhire.mongodb.net/test";
+// const connectionURL = "mongodb+srv://omaralrafei1:oooooooo@clusterdata.fhire.mongodb.net/test";
+const connectionURL = "mongodb://127.0.0.1:27017";
 var dbo;
 // you can access this website at https://radiant-plateau-92385.herokuapp.com/
 
@@ -192,9 +193,7 @@ MongoClient.connect(connectionURL, function (error, database) {
         imageout: "images/keyboard4out.jpg",
       },
     ];
-    dbo
-      .collection("instruments")
-      .insertMany(myProductsObj, function (err, results) {
+    dbo.collection("instruments").insertMany(myProductsObj, function (err, results) {
         if (err) throw err;
       });
     console.log("Collection instruments have been created!");
@@ -227,7 +226,7 @@ app.post('/login', function(req, res){
           if(decryptedPass != password){
           res.send("wrong username or password");
         }else{
-          res.send("success");
+          res.send(result.ID);
         }
       }
     });
@@ -240,17 +239,17 @@ app.post('/create', function(req,res){
     const dbo = db.db("mydb");
     let userName = req.body.username;
     let encryptedPassword = encrypt(req.body.pass);
-    let decryptedPassword = decrypt(encryptedPassword);
+    var ID = req.body.ID;
     dbo.collection("users").findOne({username: userName},function(err, result){
       if (err) throw err;
       else if(result){
         res.send("username already taken");
       }
       else{
-        dbo.collection("users").insertOne({username: userName, password: encryptedPassword.password, iv: encryptedPassword.iv}, function(err, result){
+        dbo.collection("users").insertOne({username: userName, userID: ID,password: encryptedPassword.password, iv: encryptedPassword.iv}, function(err, result){
         if (err) throw err;
         else{
-          res.send("success");
+          res.send(ID);
         }
       });
       }
@@ -268,9 +267,7 @@ app.get("/index", function (req, res) {
   MongoClient.connect(connectionURL, function (err, db) {
     if (err) throw err;
     const dbo = db.db("mydb");
-    dbo
-      .collection("instruments")
-      .findOne({ type: "guitar" }, function (err, result) {
+    dbo.collection("instruments").findOne({ type: "guitar" }, function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("no results...");
@@ -278,9 +275,7 @@ app.get("/index", function (req, res) {
           instrumentDisplay.push(result);
         }
       });
-    dbo
-      .collection("instruments")
-      .findOne({ type: "bass" }, function (err, result) {
+    dbo.collection("instruments").findOne({ type: "bass" }, function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("no results...");
@@ -288,9 +283,7 @@ app.get("/index", function (req, res) {
           instrumentDisplay.push(result);
         }
       });
-    dbo
-      .collection("instruments")
-      .findOne({ type: "drums" }, function (err, result) {
+    dbo.collection("instruments").findOne({ type: "drums" }, function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("no results...");
@@ -298,9 +291,7 @@ app.get("/index", function (req, res) {
           instrumentDisplay.push(result);
         }
       });
-    dbo
-      .collection("instruments")
-      .findOne({ type: "keyboard" }, function (err, result) {
+    dbo.collection("instruments").findOne({ type: "keyboard" }, function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("error");
@@ -318,10 +309,7 @@ app.get("/guitars", function (req, res) {
     if (err) throw err;
     const dbo = db.db("mydb");
     //query that gets only guitars from collection instruments
-    dbo
-      .collection("instruments")
-      .find({ type: "guitar" })
-      .toArray(function (err, results) {
+    dbo.collection("instruments").find({ type: "guitar" }).toArray(function (err, results) {
         if (err) throw err;
         if (!results) {
           console.log("no results...");
@@ -338,10 +326,7 @@ app.get("/bass", function (req, res) {
     if (err) throw err;
     const dbo = db.db("mydb");
     //query that gets only guitars from collection instruments
-    dbo
-      .collection("instruments")
-      .find({ type: "bass" })
-      .toArray(function (err, results) {
+    dbo.collection("instruments").find({ type: "bass" }).toArray(function (err, results) {
         if (err) throw err;
         if (!results) {
           console.log("no results...");
@@ -358,10 +343,7 @@ app.get("/keyboards", function (req, res) {
     if (err) throw err;
     const dbo = db.db("mydb");
     //query that gets only guitars from collection instruments
-    dbo
-      .collection("instruments")
-      .find({ type: "keyboard" })
-      .toArray(function (err, results) {
+    dbo.collection("instruments").find({ type: "keyboard" }).toArray(function (err, results) {
         if (err) throw err;
         if (!results) {
           console.log("no results...");
@@ -379,9 +361,7 @@ app.get("/topDeals", function (req, res) {
     if (err) throw err;
     const dbo = db.db("mydb");
     //query that gets only guitars from collection instruments
-    dbo
-      .collection("instruments")
-      .findOne({ stock: { $gt: 0 }, type: "guitar" }, function (err, result) {
+    dbo.collection("instruments").findOne({ stock: { $gt: 0 }, type: "guitar" }, function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("no results...");
@@ -390,9 +370,7 @@ app.get("/topDeals", function (req, res) {
         }
       });
       //query that gets only bass from collection instruments
-    dbo
-      .collection("instruments")
-      .findOne({ stock: { $gt: 0 }, type: "bass" }, function (err, result) {
+    dbo.collection("instruments").findOne({ stock: { $gt: 0 }, type: "bass" }, function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("no results...");
@@ -401,9 +379,7 @@ app.get("/topDeals", function (req, res) {
         }
       });
       //query that gets only drums from collection instruments
-    dbo
-      .collection("instruments")
-      .findOne({ stock: { $gt: 0 }, type: "drums" }, function (err, result) {
+    dbo.collection("instruments").findOne({ stock: { $gt: 0 }, type: "drums" }, function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("no results...");
@@ -412,9 +388,7 @@ app.get("/topDeals", function (req, res) {
         }
       });
       //query that gets only keyboard from collection instruments
-    dbo
-      .collection("instruments")
-      .findOne({ stock: { $gt: 0 }, type: "keyboard" }, function (err, result) {
+    dbo.collection("instruments").findOne({ stock: { $gt: 0 }, type: "keyboard" }, function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("rendering the top deals ejs page");
@@ -433,10 +407,7 @@ app.get("/drums", function (req, res) {
     if (err) throw err;
     const dbo = db.db("mydb");
     //query that gets only drums from collection instruments
-    dbo
-      .collection("instruments")
-      .find({ type: "drums" })
-      .toArray(function (err, results) {
+    dbo.collection("instruments").find({ type: "drums" }).toArray(function (err, results) {
         if (err) throw err;
         if (!results) {
           console.log("no results...");
@@ -452,10 +423,7 @@ app.post("/cart", function (req, res) {
     if (err) throw err;
     const dbo = db.db("mydb");
         //query that gets only items with ID from collection Cart
-    dbo
-      .collection("cart")
-      .find({ userID: req.body.ID })
-      .toArray(function (err, result) {
+    dbo.collection("cart").find({ userID: req.body.ID }).toArray(function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("no results...");
@@ -473,10 +441,7 @@ app.post("/addtocart", (req, res) => {
     if (err) throw err;
     const dbo = db.db("mydb");
     var item;
-
-    dbo
-      .collection("instruments")
-      .findOne({ name: req.body.name }, function (err, result) {
+    dbo.collection("instruments").findOne({ name: req.body.name }, function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("no results...");
@@ -487,14 +452,9 @@ app.post("/addtocart", (req, res) => {
           item = result;
           item.userID = req.body.ID;
           //decrements stock when adding an item to cart
-          dbo
-            .collection("instruments")
-            .findOneAndUpdate({ name: req.body.name }, { $inc: { stock: -1 } });
+          dbo.collection("instruments").findOneAndUpdate({ name: req.body.name }, { $inc: { stock: -1 } });
           //adds item to quantity with quantity 1
-          dbo
-            .collection("cart")
-            .findOne(
-              { name: result.name, userID: req.body.ID },
+          dbo.collection("cart").findOne({ name: result.name, userID: req.body.ID },
               function (err, result) {
                 if (err) throw err;
                 else if (!result) {
@@ -505,9 +465,7 @@ app.post("/addtocart", (req, res) => {
                       res.send(`success`);
                     });
                 } else {
-                  dbo
-                    .collection("cart")
-                    .findOneAndUpdate(
+                  dbo.collection("cart").findOneAndUpdate(
                       { name: item.name, userID: req.body.ID },
                       { $inc: { quantity: 1 } }
                     );
@@ -515,7 +473,7 @@ app.post("/addtocart", (req, res) => {
                   res.send(`success`);
                 }
               }
-            );
+          );
         }
       });
   });
@@ -527,9 +485,7 @@ app.post("/addQuantity", (req, res) => {
     const dbo = db.db("mydb");
     let instrument;
     //gets item by name
-    dbo
-      .collection("instruments")
-      .findOne({ name: req.body.name }, function (err, result) {
+    dbo.collection("instruments").findOne({ name: req.body.name }, function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("no results...");
@@ -539,13 +495,9 @@ app.post("/addQuantity", (req, res) => {
         } else {
           itemQuantity = result.quantity;
           //decrements the stock of the item
-          dbo
-            .collection("instruments")
-            .findOneAndUpdate({ name: req.body.name }, { $inc: { stock: -1 } });
+          dbo.collection("instruments").findOneAndUpdate({ name: req.body.name }, { $inc: { stock: -1 } });
           //adds more quantity to item in cart
-          instrument = dbo
-            .collection("cart")
-            .findOneAndUpdate(
+          instrument = dbo.collection("cart").findOneAndUpdate(
               { name: req.body.name, userID: req.body.ID },
               { $inc: { quantity: 1 } },
               { returnDocument: true }
@@ -562,9 +514,7 @@ app.post("/subQuantity", (req, res) => {
     if (err) throw err;
     const dbo = db.db("mydb");
     //gets the item by item name and user id
-    dbo
-      .collection("cart")
-      .findOne(
+    dbo.collection("cart").findOne(
         { name: req.body.name, userID: req.body.ID },
         function (err, result) {
           if (err) throw err;
@@ -572,25 +522,19 @@ app.post("/subQuantity", (req, res) => {
             console.log("no results...");
             res.send(`failed`);
           } else if (result.quantity == 1) {//removes item if quantity is =1
-            dbo
-              .collection("cart")
-              .findOneAndDelete({ name: result.name, userID: req.body.ID });
+            dbo.collection("cart").findOneAndDelete({ name: result.name, userID: req.body.ID });
             console.log("item removed from cart");
             res.send(`success`);
           } else if (result.quantity <= 0) {//cannot remove amount if the quantity is 0
             res.send(`failed`);
           } else {
             //increments stock of the item in instruments
-            dbo
-              .collection("instruments")
-              .findOneAndUpdate(
+            dbo.collection("instruments").findOneAndUpdate(
                 { name: req.body.name },
                 { $inc: { stock: 1 } }
               );
             //decrements quantity of the item in the cart
-            dbo
-              .collection("cart")
-              .findOneAndUpdate(
+            dbo.collection("cart").findOneAndUpdate(
                 { name: req.body.name, userID: req.body.ID },
                 { $inc: { quantity: -1 } }
               );
@@ -601,10 +545,7 @@ app.post("/subQuantity", (req, res) => {
       );
   });
 });
-//posts the id of the user to console
-app.post("/check", (req, res) => {
-  console.log(req.body.ID);
-});
+
 //called from delete button in cart
 app.post("/deletefromcart", (req, res) => {
   MongoClient.connect(connectionURL, function (err, db) {
@@ -612,9 +553,7 @@ app.post("/deletefromcart", (req, res) => {
     const dbo = db.db("mydb");
     var itemQuantity;
 
-    dbo
-      .collection("cart")
-      .findOne(
+    dbo.collection("cart").findOne(
         { name: req.body.name, userID: req.body.ID },
         function (err, result) {
           if (err) throw err;
@@ -626,15 +565,11 @@ app.post("/deletefromcart", (req, res) => {
             res.send(`failed`);
           } else {
             itemQuantity = result.quantity;
-            dbo
-              .collection("instruments")
-              .findOneAndUpdate(
+            dbo.collection("instruments").findOneAndUpdate(
                 { name: req.body.name },
                 { $inc: { stock: itemQuantity } }
               );
-            dbo
-              .collection("cart")
-              .findOneAndDelete({ name: result.name, userID: req.body.ID });
+            dbo.collection("cart").findOneAndDelete({ name: result.name, userID: req.body.ID });
             console.log("item removed from cart");
             res.send(`success`);
           }
@@ -649,16 +584,12 @@ app.post("/checkout", (req, res) => {
     if (err) throw err;
     const dbo = db.db("mydb");
     //gets all items in cart for user.id for error handling
-    dbo
-      .collection("cart")
-      .find({ userID: req.body.ID })
-      .toArray(function (err, result) {
+    dbo.collection("cart").find({ userID: req.body.ID }).toArray(function (err, result) {
         if (err) throw err;
         else if (!result) {
           console.log("no results...");
           res.send(`no items in cart`);
         } else {
-          console.log(result);
           //deletes all item in cart of user.id
           dbo.collection("cart").deleteMany({ userID: req.body.ID });
           console.log("purchase complete and cart is emptied");
