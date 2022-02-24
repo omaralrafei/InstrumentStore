@@ -392,7 +392,7 @@ app.get("/topDeals", function (req, res) {
         if (err) throw err;
         else if (!result) {
           console.log("rendering the top deals ejs page");
-          res.render("topDeals", { obj: topDeals });
+          res.render("instruments", { obj: topDeals, type: "Top Deals" });
         } else {
           topDeals.push(result);
           console.log("rendering the top deals ejs page");
