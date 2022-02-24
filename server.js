@@ -497,11 +497,7 @@ app.post("/addQuantity", (req, res) => {
           //decrements the stock of the item
           dbo.collection("instruments").findOneAndUpdate({ name: req.body.name }, { $inc: { stock: -1 } });
           //adds more quantity to item in cart
-          instrument = dbo.collection("cart").findOneAndUpdate(
-              { name: req.body.name, userID: req.body.ID },
-              { $inc: { quantity: 1 } },
-              { returnDocument: true }
-            );
+          instrument = dbo.collection("cart").findOneAndUpdate({ name: req.body.name, userID: req.body.ID },{ $inc: { quantity: 1 } },{ returnDocument: true });
           console.log("item quantity incremented in cart");
           res.send(`success`);
         }

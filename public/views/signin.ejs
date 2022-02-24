@@ -57,8 +57,8 @@
     }
 
       function googleButton(){
-        var profile = sessionStorage.getItem("googleUser");
-        var currentUser = {ID: profile.getId(), name: profile.getName()};
+        var profile = JSON.parse(sessionStorage.getItem("googleUser"));
+        var currentUser = {ID: profile.ID, name: profile.Name};
         if(currentUser){
           sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
           window.location.href = "/index";
