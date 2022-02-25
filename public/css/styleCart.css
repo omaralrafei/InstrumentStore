@@ -249,6 +249,10 @@ h3 {
   .flag {
     left: 32%;
   }
+  #navbar li:nth-last-child(2){
+  margin-left: 0px;
+  float: none;
+  }
 }
 @media screen and (max-width: 426px) {
   #intro {
