@@ -48,15 +48,15 @@ body {
 #navbar li:nth-last-child(2){
   margin-left: 80px;
   float: right;
-  padding-top: 1%;
+  padding-top: 0.5%;
 }
   #navbar li:nth-last-child(1){
   margin-left: 0px;
-  padding-top: 1%;
+  padding-top: 0.5%;
   }
 #navbar li {
   display: inline-block;
-  width: fit-content;
+  width: 150px;
   height: 100%;
   padding: 0px 10px;
   background-color: rgba(78, 78, 78, 0.5);
@@ -351,6 +351,8 @@ h3 {
   }
   #navbar li {
     font-size: 10px;
+    width:fit-content;
+    height: 100%;
   }
   #navbar li:nth-last-child(2){
   margin-left: 0px;
