@@ -257,7 +257,22 @@ h3 {
 @media screen and (max-width: 650px) {
   .grid-container {
     width: 80%;
+    margin: auto auto 10px auto;
+  }
+}
+@media screen and (max-width: 550px) {
+  .grid-container {
+    width: 80%;
     margin: auto;
+  }
+  .grid-item .flag{
+    font-size: 10px;
+  } 
+  .grid-item #quan{
+    font-size: 10px;
+  } 
+  .checkout{
+    margin-top: 30px;
   }
 }
 @media screen and (max-width: 426px) {
