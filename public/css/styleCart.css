@@ -254,6 +254,12 @@ h3 {
   float: none;
   }
 }
+@media screen and (max-width: 650px) {
+  .grid-container {
+    width: 80%;
+    margin: auto;
+  }
+}
 @media screen and (max-width: 426px) {
   #intro {
     font-size: 20px;
@@ -275,12 +281,12 @@ h3 {
     font-size: 15px;
     padding: 15px 0px 0px;
   }
-  .grid-container {
+  /* .grid-container {
     display: block;
   }
   .grid-item {
     margin-bottom: 20px;
-  }
+  } */
   .flag {
     left: 20%;
   }
