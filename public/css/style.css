@@ -7,6 +7,8 @@
   src: url(fonts/Cedarville_Cursive/CedarvilleCursive-Regular.ttf);
 }
 body {
+  height: 100vh;
+  min-height: 100vh;
   margin: 0px;
   background-color: beige;
 }
@@ -250,6 +252,11 @@ h1 {
   animation-delay: -3s;
 }
 #footer {
+  clear: both;
+  position: relative;
+  margin-top: 0px;
+  bottom: 0px;
+  height: 200px;
   display: flex;
   flex-direction: row;
   justify-content: center;
